@@ -1,5 +1,4 @@
 function userInformationHTML(user) {
-    console.log(user);
     return `
         <h2>${user.name}
             <span class="small-name">
@@ -34,16 +33,12 @@ function repoInformationHTML(repos) {
                 <ul>
                     ${listItemsHTML.join("\n")}
                 </ul>
-
             </div>`;
-           
 }
 
 function fetchGitHubInformation(event) {
-    $("#gh-user-data").html("");
-    $("#gh-repo-data").html("");
+
     var username = $("#gh-username").val();
-    console.log(username);
     if (!username) {
         $("#gh-user-data").html(`<h2>Please enter a GitHub username</h2>`);
         return;
@@ -63,7 +58,7 @@ function fetchGitHubInformation(event) {
             var repoData = secondResponse[0];
             $("#gh-user-data").html(userInformationHTML(userData));
             $("#gh-repo-data").html(repoInformationHTML(repoData));
-        }, 
+        },
         function(errorResponse) {
             if (errorResponse.status === 404) {
                 $("#gh-user-data").html(
@@ -75,5 +70,3 @@ function fetchGitHubInformation(event) {
             }
         });
 }
-
-$(document).ready(fetchGitHubInformation);
